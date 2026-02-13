@@ -1,0 +1,121 @@
+:root {
+  /* Farger */
+  --farge-primær: #2563eb;
+  --farge-primær-mørk: #1d4ed8;
+  --farge-primær-alpha: rgba(37, 99, 235, 0.2);
+  
+  --farge-bakgrunn: #f8fafc;
+  --farge-bakgrunn-nav: #ffffff;
+  --farge-bakgrunn-kort: #ffffff;
+  
+  --farge-tekst: #1e293b;
+  --farge-tekst-dempet: #64748b;
+  
+  --farge-grense: #e2e8f0;
+  --farge-hover: #f1f5f9;
+  
+  --farge-suksess: #22c55e;
+  --farge-suksess-bakgrunn: #dcfce7;
+  --farge-feil: #ef4444;
+  
+  /* Mellomrom */
+  --mellomrom-xs: 0.25rem;
+  --mellomrom-sm: 0.5rem;
+  --mellomrom-md: 1rem;
+  --mellomrom-lg: 1.5rem;
+  --mellomrom-xl: 2.5rem;
+  
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  
+  /* Skygger */
+  --skygge-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --skygge-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--farge-bakgrunn);
+  color: var(--farge-tekst);
+  min-height: 100vh;
+}
+
+/* Knapper */
+.knapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mellomrom-sm) var(--mellomrom-md);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.knapp:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.knapp-primær {
+  background: var(--farge-primær);
+  color: white;
+}
+
+.knapp-primær:hover:not(:disabled) {
+  background: var(--farge-primær-mørk);
+}
+
+.knapp-sekundær {
+  background: var(--farge-bakgrunn-kort);
+  color: var(--farge-tekst);
+  border: 1px solid var(--farge-grense);
+}
+
+.knapp-sekundær:hover:not(:disabled) {
+  background: var(--farge-hover);
+}
+
+.knapp-stor {
+  padding: var(--mellomrom-md) var(--mellomrom-lg);
+  font-size: 1.1rem;
+}
+
+/* Lenker */
+a {
+  color: var(--farge-primær);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Responsivt */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .hovedinnhold {
+    padding: var(--mellomrom-md);
+  }
+}
