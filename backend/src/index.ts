@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { clerkMiddleware } from '@clerk/express';
 import { bingoRouter } from './routes/bingo';
 import { adminRouter } from './routes/admin';
 import { brukerRouter } from './routes/bruker';
+import { authRouter } from './routes/auth';
 
 // Load environment variables (try .env.local first, then .env)
 dotenv.config({ path: '.env' });
@@ -15,8 +15,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(clerkMiddleware());
 
+app.use('/api/auth', authRouter);
 app.use('/api/bruker', brukerRouter);
 app.use('/api/bingo', bingoRouter);
 app.use('/api/admin', adminRouter);

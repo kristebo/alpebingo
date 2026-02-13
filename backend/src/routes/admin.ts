@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import { clerkAuthMiddleware, brukerMiddleware, adminMiddleware, AuthRequest } from '../middleware/clerkAuth';
+import { authMiddleware, adminMiddleware, AuthRequest } from '../middleware/auth';
 import { hentAlleBrukere, lagreBruker, hentBruker, hentAlleTeams, lagreTeam, hentTeam, slettTeam } from '../data/brukere';
 import { 
   hentAlleKategorier, lagreKategori, hentKategori, slettKategori,
@@ -10,8 +10,7 @@ import { Kategori, BingoFelt } from '../types/bingo';
 
 export const adminRouter = Router();
 
-adminRouter.use(clerkAuthMiddleware);
-adminRouter.use(brukerMiddleware);
+adminRouter.use(authMiddleware);
 adminRouter.use(adminMiddleware);
 
 adminRouter.get('/brukere', (_req, res: Response) => {

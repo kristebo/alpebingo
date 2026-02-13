@@ -1,22 +1,14 @@
 <script setup lang="ts">
-import { watch, watchEffect } from 'vue';
-import { useAuth } from '@clerk/vue';
+import { watch } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 import { useBingoStore } from '@/stores/bingo';
 import BingoKort from '@/components/BingoKort.vue';
 
-const { isSignedIn } = useAuth();
+const authStore = useAuthStore();
 const bingoStore = useBingoStore();
 
-console.log('[BingoView] Komponent montert, isSignedIn:', isSignedIn.value);
-
-watchEffect(() => {
-  console.log('[BingoView] watchEffect - isSignedIn:', isSignedIn.value, 'kort:', bingoStore.kort, 'laster:', bingoStore.laster);
-});
-
-watch(isSignedIn, (signedIn, oldVal) => {
-  console.log('[BingoView] isSignedIn endret fra', oldVal, 'til', signedIn);
-  if (signedIn) {
-    console.log('[BingoView] Kaller hentKort()...');
+watch(() => authStore.erInnlogget, (innlogget) => {
+  if (innlogget) {
     bingoStore.hentKort();
   }
 }, { immediate: true });
@@ -24,7 +16,7 @@ watch(isSignedIn, (signedIn, oldVal) => {
 
 <template>
   <div class="bingo-side">
-    <template v-if="!isSignedIn">
+    <template v-if="!authStore.erInnlogget">
       <div class="ikke-innlogget">
         <h2>Du må logge inn for å se bingokort</h2>
         <p>Gå til <router-link to="/logginn">Logg inn</router-link> for å starte.</p>

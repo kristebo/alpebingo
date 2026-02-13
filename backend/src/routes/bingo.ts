@@ -1,5 +1,5 @@
 import { Router, Response } from 'express';
-import { clerkAuthMiddleware, brukerMiddleware, AuthRequest } from '../middleware/clerkAuth';
+import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { hentKortForBruker, lagreKort, hentKort } from '../data/bingokort';
 import { genererTilfeldigKort, hentAktiveHendelser, hentAlleKategorier } from '../data/hendelser';
 
@@ -13,7 +13,7 @@ bingoRouter.get('/kategorier', (_req, res) => {
   res.json(hentAlleKategorier());
 });
 
-bingoRouter.get('/kort', clerkAuthMiddleware, brukerMiddleware, (req: AuthRequest, res: Response) => {
+bingoRouter.get('/kort', authMiddleware, (req: AuthRequest, res: Response) => {
   const brukerId = req.brukerId!;
   let kort = hentKortForBruker(brukerId);
 
@@ -25,14 +25,14 @@ bingoRouter.get('/kort', clerkAuthMiddleware, brukerMiddleware, (req: AuthReques
   res.json(kort);
 });
 
-bingoRouter.post('/kort/nytt', clerkAuthMiddleware, brukerMiddleware, (req: AuthRequest, res: Response) => {
+bingoRouter.post('/kort/nytt', authMiddleware, (req: AuthRequest, res: Response) => {
   const brukerId = req.brukerId!;
   const kort = genererTilfeldigKort(brukerId);
   lagreKort(kort);
   res.json(kort);
 });
 
-bingoRouter.post('/kort/:kortId/kryss/:feltId', clerkAuthMiddleware, brukerMiddleware, (req: AuthRequest, res: Response) => {
+bingoRouter.post('/kort/:kortId/kryss/:feltId', authMiddleware, (req: AuthRequest, res: Response) => {
   const { kortId, feltId } = req.params;
   const kort = hentKort(kortId);
 

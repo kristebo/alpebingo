@@ -1,11 +1,10 @@
 import { Router, Response } from 'express';
-import { clerkAuthMiddleware, brukerMiddleware, AuthRequest } from '../middleware/clerkAuth';
+import { authMiddleware, AuthRequest } from '../middleware/auth';
 import { hentBruker } from '../data/brukere';
 
 export const brukerRouter = Router();
 
-
-brukerRouter.get('/meg', clerkAuthMiddleware, brukerMiddleware, (req: AuthRequest, res: Response) => {
+brukerRouter.get('/meg', authMiddleware, (req: AuthRequest, res: Response) => {
   const bruker = hentBruker(req.brukerId!);
   
   if (!bruker) {

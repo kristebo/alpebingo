@@ -2,13 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminRouter = void 0;
 const express_1 = require("express");
-const clerkAuth_1 = require("../middleware/clerkAuth");
+const auth_1 = require("../middleware/auth");
 const brukere_1 = require("../data/brukere");
 const hendelser_1 = require("../data/hendelser");
 exports.adminRouter = (0, express_1.Router)();
-exports.adminRouter.use(clerkAuth_1.clerkAuthMiddleware);
-exports.adminRouter.use(clerkAuth_1.brukerMiddleware);
-exports.adminRouter.use(clerkAuth_1.adminMiddleware);
+exports.adminRouter.use(auth_1.authMiddleware);
+exports.adminRouter.use(auth_1.adminMiddleware);
 exports.adminRouter.get('/brukere', (_req, res) => {
     const brukere = (0, brukere_1.hentAlleBrukere)().map(b => ({
         id: b.id,

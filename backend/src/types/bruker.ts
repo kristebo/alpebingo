@@ -8,9 +8,10 @@ export interface Team {
 
 export interface Bruker {
   id: string;
-  clerkId: string;
+  clerkId?: string; // Optional for backwards compatibility
   brukernavn: string;
   epost: string;
+  passord?: string; // Hashed password
   rolle: Rolle;
   teamId?: string;
   opprettet: Date;

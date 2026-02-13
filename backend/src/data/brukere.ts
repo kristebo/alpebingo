@@ -10,13 +10,6 @@ export function hentBrukerMedEpost(epost: string): Bruker | undefined {
   return undefined;
 }
 
-export function hentBrukerMedClerkId(clerkId: string): Bruker | undefined {
-  for (const bruker of brukere.values()) {
-    if (bruker.clerkId === clerkId) return bruker;
-  }
-  return undefined;
-}
-
 export function hentBruker(id: string): Bruker | undefined {
   return brukere.get(id);
 }

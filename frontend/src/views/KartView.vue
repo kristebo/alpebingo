@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
-import { useAuth } from '@clerk/vue';
+import { useAuthStore } from '@/stores/auth';
 import { useKartStore } from '@/stores/kart';
 import { useBingoStore } from '@/stores/bingo';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const { isSignedIn } = useAuth();
+const authStore = useAuthStore();
 const kartStore = useKartStore();
 const bingoStore = useBingoStore();
 
@@ -186,7 +186,7 @@ function velgBingoFelt(feltId: string, tekst: string) {
 
 <template>
   <div class="kart-side">
-    <template v-if="!isSignedIn">
+    <template v-if="!authStore.erInnlogget">
       <div class="ikke-innlogget">
         <h2>Du må logge inn for å bruke kartet</h2>
         <p>Gå til <router-link to="/logginn">Logg inn</router-link> for å starte.</p>

@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.teams = exports.brukere = void 0;
 exports.hentBrukerMedEpost = hentBrukerMedEpost;
-exports.hentBrukerMedClerkId = hentBrukerMedClerkId;
 exports.hentBruker = hentBruker;
 exports.lagreBruker = lagreBruker;
 exports.hentAlleBrukere = hentAlleBrukere;
@@ -15,13 +14,6 @@ exports.teams = new Map();
 function hentBrukerMedEpost(epost) {
     for (const bruker of exports.brukere.values()) {
         if (bruker.epost === epost)
-            return bruker;
-    }
-    return undefined;
-}
-function hentBrukerMedClerkId(clerkId) {
-    for (const bruker of exports.brukere.values()) {
-        if (bruker.clerkId === clerkId)
             return bruker;
     }
     return undefined;

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bingoRouter = void 0;
 const express_1 = require("express");
-const clerkAuth_1 = require("../middleware/clerkAuth");
+const auth_1 = require("../middleware/auth");
 const bingokort_1 = require("../data/bingokort");
 const hendelser_1 = require("../data/hendelser");
 exports.bingoRouter = (0, express_1.Router)();
@@ -12,7 +12,7 @@ exports.bingoRouter.get('/hendelser', (_req, res) => {
 exports.bingoRouter.get('/kategorier', (_req, res) => {
     res.json((0, hendelser_1.hentAlleKategorier)());
 });
-exports.bingoRouter.get('/kort', clerkAuth_1.clerkAuthMiddleware, clerkAuth_1.brukerMiddleware, (req, res) => {
+exports.bingoRouter.get('/kort', auth_1.authMiddleware, (req, res) => {
     const brukerId = req.brukerId;
     let kort = (0, bingokort_1.hentKortForBruker)(brukerId);
     if (!kort) {
@@ -21,13 +21,13 @@ exports.bingoRouter.get('/kort', clerkAuth_1.clerkAuthMiddleware, clerkAuth_1.br
     }
     res.json(kort);
 });
-exports.bingoRouter.post('/kort/nytt', clerkAuth_1.clerkAuthMiddleware, clerkAuth_1.brukerMiddleware, (req, res) => {
+exports.bingoRouter.post('/kort/nytt', auth_1.authMiddleware, (req, res) => {
     const brukerId = req.brukerId;
     const kort = (0, hendelser_1.genererTilfeldigKort)(brukerId);
     (0, bingokort_1.lagreKort)(kort);
     res.json(kort);
 });
-exports.bingoRouter.post('/kort/:kortId/kryss/:feltId', clerkAuth_1.clerkAuthMiddleware, clerkAuth_1.brukerMiddleware, (req, res) => {
+exports.bingoRouter.post('/kort/:kortId/kryss/:feltId', auth_1.authMiddleware, (req, res) => {
     const { kortId, feltId } = req.params;
     const kort = (0, bingokort_1.hentKort)(kortId);
     if (!kort) {

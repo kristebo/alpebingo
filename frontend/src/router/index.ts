@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,18 +15,8 @@ const router = createRouter({
       component: () => import('@/views/LoggInnView.vue'),
     },
     {
-      path: '/logginn/:pathMatch(.*)*',
-      name: 'logginn-catchall',
-      component: () => import('@/views/LoggInnView.vue'),
-    },
-    {
       path: '/registrer',
       name: 'registrer',
-      component: () => import('@/views/RegistrerView.vue'),
-    },
-    {
-      path: '/registrer/:pathMatch(.*)*',
-      name: 'registrer-catchall',
       component: () => import('@/views/RegistrerView.vue'),
     },
     {
@@ -49,4 +40,18 @@ const router = createRouter({
   ],
 });
 
+// Auth guard
+router.beforeEach((to, _from, next) => {
+  const authStore = useAuthStore();
+
+  if (to.meta.kreverAuth && !authStore.erInnlogget) {
+    next('/logginn');
+  } else if (to.meta.kreverAdmin && !authStore.erAdmin) {
+    next('/');
+  } else {
+    next();
+  }
+});
+
 export default router;
+
