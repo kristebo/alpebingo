@@ -42,9 +42,9 @@ onMounted(() => {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
       maxZoom: 19,
-    }).addTo(map.value);
+    }).addTo(map.value as L.Map);
 
-    bingoMarkørerLayer.value = L.layerGroup().addTo(map.value);
+    bingoMarkørerLayer.value = L.layerGroup().addTo(map.value as L.Map);
 
     // Prøv å finne brukerens posisjon
     if (kartStore.harGpsTilgang) {
@@ -80,7 +80,7 @@ watch(() => kartStore.gjeldendePosisjon, (pos) => {
         iconSize: [20, 20],
         iconAnchor: [10, 10],
       }),
-    }).addTo(map.value);
+    }).addTo(map.value as L.Map);
   }
 
   // Følg bruker hvis sporing er aktiv og følg-modus er på
@@ -103,7 +103,7 @@ watch(() => kartStore.gjeldendePosisjon, (pos) => {
           opacity: 0.9,
           lineCap: 'round',
           lineJoin: 'round',
-        }).addTo(map.value);
+        }).addTo(map.value as L.Map);
       }
     }
   }
@@ -128,7 +128,7 @@ watch(() => kartStore.løyper, (løyper) => {
         opacity: 0.7,
         lineCap: 'round',
         lineJoin: 'round',
-      }).addTo(map.value!);
+      }).addTo(map.value as L.Map);
       
       polyline.bindPopup(`
         <strong>${løype.navn}</strong><br>

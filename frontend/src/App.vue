@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref } from 'vue';
+import { watch } from 'vue';
 import { RouterView } from 'vue-router';
 import { useAuth, useSession } from '@clerk/vue';
 import NavBar from './components/NavBar.vue';
