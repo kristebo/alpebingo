@@ -6,7 +6,9 @@ import { bingoRouter } from './routes/bingo';
 import { adminRouter } from './routes/admin';
 import { brukerRouter } from './routes/bruker';
 
-dotenv.config({ path: '.env.local' });
+// Load environment variables (try .env.local first, then .env)
+dotenv.config({ path: '.env' });
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
